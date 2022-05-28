@@ -1,0 +1,211 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Solid Sample",
+    "description": "This API documentation is part of Rocketseat NodeJS course.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "kempes.jac@gmail.com"
+    }
+  },
+  "paths":{
+    "/users": {
+      "post": {
+        "tags": [ "Users" ],
+        "summary": "Creates a user.",
+        "description": "A new non admin user is created.",
+        "requestBody": {  
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": "string",
+                  "email": "string"
+                },
+                "example": {
+                  "name": "adminuser",
+                  "email": "admin@admin.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "400": {
+            "description": "User already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": [ "Users" ],
+        "summary": "List all users",
+        "description": "List all users data.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "user_id",
+            "description": "ID of a admin user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple"
+          }
+        ], 
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "updated_at": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not allowed to list users."
+          }
+        }
+      }
+    },
+    "/users/{user_id}":{
+      "get": {
+        "tags": [ "Users" ],
+        "summary": "Show user profile",
+        "description": "Retrieves all data of a identified user.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "description": "ID of required user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple"
+          }
+        ],
+        "responses":{
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "created_at":{
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found."
+          }
+        }
+
+      }
+    },
+    "/users/{user_id}/admin":{
+
+      "patch": {
+        "tags": [ "Users" ],
+        "summary": "Turns a user admin",
+        "description": "Changes admin flag of a user to true.",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "ID of user that be turned admin.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User turned admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User does not exist."
+          }
+          
+        }
+      }
+    }
+  }
+}
